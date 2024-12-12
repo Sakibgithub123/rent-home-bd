@@ -1,8 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { signIn } from "next-auth/react"
 
 const LogIn = () => {
+    const handleLogin=async(e)=>{
+        e.preventDefault()
+        const name=e.target.name.value
+        const email=e.target.email.value
+
+        const res=await signIn('credentials',{
+            name,email,redirect:false
+        })
+        if(res.status===200){
+            alert("Log in success!")
+        }
+    }
     return (
         <div className='max-w-4xl mx-auto bg-base-200 my-10 py-10'>
             <div className='flex flex-row items-center justify-center gap-10 px-10'>
@@ -15,7 +27,7 @@ const LogIn = () => {
                         <h3 className='text-xl text-stone-900 font-bold'>Sign In? </h3>
                         <p className='text-sm'>Please Enter Your Details!</p>
                     </div>
-                    <form action="" className='space-y-4 my-5'>
+                    <form onSubmit={handleLogin} className='space-y-4 my-5'>
                         <label className="input input-bordered flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

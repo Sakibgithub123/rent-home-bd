@@ -3,6 +3,28 @@ import Link from 'next/link';
 import React from 'react';
 
 const SignUp = () => {
+    
+    const handleSignup=async(e)=>{
+        e.preventDefault()
+        const newUser={
+            name:e.target.name.value,
+            email:e.target.email.value,
+            password:e.target.password.value,
+        }
+        const res=await fetch("",{
+            method:"POST",
+            body:JSON.stringify(newUser),
+            headers:{
+                "content-type":"application/json"
+            }
+        })
+        console.log(res);
+        if(res.status===200){
+            alert("Signup success!")
+        }
+
+    }
+
     return (
         <div className='max-w-4xl mx-auto bg-base-200 my-10 py-10'>
             <div className='flex flex-row items-center justify-center gap-10 px-10'>
@@ -15,7 +37,7 @@ const SignUp = () => {
                         <h3 className='text-xl text-stone-900 font-bold'>Sign UP? </h3>
                         <p className='text-sm'>Please Enter Your Details!</p>
                     </div>
-                    <form action="" className='space-y-4 my-5'>
+                    <form onSubmit={handleSignup} className='space-y-4 my-5'>
                         <label className="input input-bordered flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
